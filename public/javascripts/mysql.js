@@ -32,7 +32,7 @@ module.exports = {
     },
 
     insertInto: async function (values) {
-        var sql = "INSERT INTO mainecoondonation (img, catname, descri, region, email, phone, dateposted) VALUES " + values;
+        var sql = "INSERT INTO mainecoondonation (catname, descri, region, img, phone, email, dateposted) VALUES " + values;
         return await con.promise().query(sql);
     },
 

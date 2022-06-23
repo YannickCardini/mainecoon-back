@@ -11,6 +11,7 @@ Mainecoon
 **Name**:mainecoondonation
 **Rows**:
 - id INT PRIMARY KEY,
+- catname VARCHAR(255)
 - descri VARCHAR(255),
 - region VARCHAR(255),
 - img VARCHAR(255),
@@ -35,7 +36,7 @@ Mainecoon
 
 `/insert`
 example:
->  curl -d "values=('super chat','PACA','/home/loubard/Images/mainecoon.jpg', '0623671013','lolo@gmail.com','2022-06-16')" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:3000/insert
+>  curl -d "values=('filibert','super chat','PACA','/home/loubard/Images/mainecoon.jpg', '0623671013','lolo@gmail.com','2022-06-16')" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:3000/insert
 
 `/customRequest`
 example:
