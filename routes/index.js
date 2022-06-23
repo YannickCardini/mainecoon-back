@@ -32,8 +32,11 @@ router.post('/insert',(req, res) => {
   if(!req.body.values)
     res.send('Bad input !');
   var values = req.body.values;
-  mysql.insertInto(values);
-  res.send('Values: ' + values + ' inserted into TABLE mainecoondonation !');
+  var res = mysql.insertInto(values);
+  console.log(res);
+  console.log('Values: ' + values + ' inserted into TABLE mainecoondonation !');
+  res.render('success');
+
 });
 
 router.post('/customRequest',(req, res) => {

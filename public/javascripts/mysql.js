@@ -24,32 +24,27 @@ module.exports = {
     },
 
     createTable: function () {
-        var sql = "CREATE TABLE mainecoondonation (id INT AUTO_INCREMENT PRIMARY KEY, descri VARCHAR(255), region VARCHAR(255), img VARCHAR(255), phone VARCHAR(14), email VARCHAR(255), dateposted DATE)";
+        var sql = "CREATE TABLE mainecoondonation (id INT AUTO_INCREMENT PRIMARY KEY, catname VARCHAR(255), descri VARCHAR(255), region VARCHAR(255), img VARCHAR(255), phone VARCHAR(14), email VARCHAR(255), dateposted DATE)";
         con.query(sql, function (err, result) {
             if (err) throw err;
             console.log("Table created");
         });
     },
 
-    insertInto: function (values) {
-        var sql = "INSERT INTO mainecoondonation (descri, region, img, phone, email, dateposted) VALUES " + values;
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log("1 record inserted");
-        });
+    insertInto: async function (values) {
+        var sql = "INSERT INTO mainecoondonation (img, catname, descri, region, email, phone, dateposted) VALUES " + values;
+        return await con.promise().query(sql);
     },
 
-    customRequest: function (query) {
+    customRequest: async function (query) {
         var sql = query;
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log(result);
-            return result;
-        });
+        return  await con.promise().query(sql);
     },
 
     select: async function () {
         const results = await con.promise().query("SELECT * FROM mainecoondonation");
+        if (!results.length)
+            throw new Errors.NotFound('mainecoondonation not found');
         return results[0];
     }
 
