@@ -8,9 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express()
-app.listen(3001, 'localhost', function() {
-  console.log("... port %d in %s mode", app.address().port, app.settings.env);
-});
+app.listen(3000, '127.0.0.1');
 
 
 var corsOptions = {
