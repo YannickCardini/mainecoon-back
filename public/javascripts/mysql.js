@@ -4,17 +4,16 @@ var con = mysql.createConnection({
     host: "db",
     user: "root",
     password: "password",
-}).then((connection) => {
-    connection.query(`CREATE DATABASE IF NOT EXISTS 'mainecoon;`);
 });
 
 module.exports = {
 
     connect: function () {
-        con.connect(function (err) {
+        var sql = "CREATE DATABASE IF NOT EXISTS 'mainecoon;";
+        con.query(sql, function (err, result) {
             if (err) throw err;
-            console.log("Connected!");
-        })
+            console.log("Connected");
+        });
     },
 
     createTable: function () {
