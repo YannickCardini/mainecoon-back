@@ -12,7 +12,7 @@ var app = express()
 
 
 var corsOptions = {
-    origin: 'https://www.mainecoon.click',
+    origin: 'http://localhost',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 

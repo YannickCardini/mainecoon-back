@@ -4,7 +4,8 @@ var con = mysql.createConnection({
     host: "db",
     user: "root",
     password: "password",
-    database: "mainecoon"
+}).then((connection) => {
+    connection.query(`CREATE DATABASE IF NOT EXISTS 'mainecoon;`);
 });
 
 module.exports = {
@@ -14,13 +15,6 @@ module.exports = {
             if (err) throw err;
             console.log("Connected!");
         })
-    },
-
-    createDatabase: function () {
-        con.query("CREATE DATABASE mainecoon", function (err, result) {
-            if (err) throw err;
-            console.log("Database created");
-        });
     },
 
     createTable: function () {
