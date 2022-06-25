@@ -8,14 +8,16 @@ var con = mysql.createConnection({
 
 module.exports = {
 
-    connect: function () {
-        con.connect(function (err) {
-            if (err) throw err;
-            console.log("Connected!");
-            con.query("CREATE DATABASE IF NOT EXISTS mainecoon", function (err, result) {
-                if (err) throw err;
-                console.log("Database created");
-            });
+    connect: async function () {
+        await con.promise().connect();
+        console.log("Connected!");
+        await con.promise().query("CREATE DATABASE IF NOT EXISTS mainecoon");
+        console.log("Database created");
+        var con = mysql.createConnection({
+            host: "db",
+            user: "root",
+            password: "password",
+            database: "mainecoon"
         });
     },
 
