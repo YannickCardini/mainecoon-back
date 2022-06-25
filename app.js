@@ -3,12 +3,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
+const ipfilter = require('express-ipfilter').IpFilter
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express()
-app.listen(3000, '127.0.0.1');
+
+// Allow the following IPs
+const ips = ['127.0.0.1']
+
+// Create the server
+app.use(ipfilter(ips, { mode: 'allow' }))
 
 
 var corsOptions = {
