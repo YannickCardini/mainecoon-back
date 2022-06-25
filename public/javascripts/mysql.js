@@ -9,10 +9,13 @@ var con = mysql.createConnection({
 module.exports = {
 
     connect: function () {
-        var sql = "CREATE DATABASE IF NOT EXISTS 'mainecoon;";
-        con.query(sql, function (err, result) {
+        con.connect(function (err) {
             if (err) throw err;
-            console.log("Connected");
+            console.log("Connected!");
+            con.query("CREATE DATABASE IF NOT EXISTS mainecoon", function (err, result) {
+                if (err) throw err;
+                console.log("Database created");
+            });
         });
     },
 
