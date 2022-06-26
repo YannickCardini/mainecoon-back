@@ -32,13 +32,20 @@ module.exports = {
     },
 
     insertInto: async function (values) {
-        var sql = "INSERT INTO mainecoondonation (catname, descri, region, img, phone, email, dateposted) VALUES " + values;
-        return await con.promise().query(sql);
+        return new Promise((resolve, reject) => {
+            var sql = "INSERT INTO mainecoondonation (catname, descri, region, img, phone, email, dateposted) VALUES " + values;
+            return con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(result);
+            });
+        })
     },
 
     customRequest: async function (query) {
         var sql = query;
-        return  await con.promise().query(sql);
+        return await con.promise().query(sql);
     },
 
     select: async function () {
