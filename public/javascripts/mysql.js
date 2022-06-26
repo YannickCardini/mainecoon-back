@@ -4,22 +4,20 @@ var con = mysql.createConnection({
     host: "db",
     user: "root",
     password: "password",
-    database: "mainecoon"
 });
 
 module.exports = {
 
-    connect: function () {
-        con.connect(function (err) {
-            if (err) throw err;
-            console.log("Connected!");
-        })
-    },
-
-    createDatabase: function () {
-        con.query("CREATE DATABASE mainecoon", function (err, result) {
-            if (err) throw err;
-            console.log("Database created");
+    connect: async function () {
+        await con.promise().connect();
+        console.log("Connected!");
+        await con.promise().query("CREATE DATABASE IF NOT EXISTS mainecoon");
+        console.log("Database created");
+        var con = mysql.createConnection({
+            host: "db",
+            user: "root",
+            password: "password",
+            database: "mainecoon"
         });
     },
 
@@ -41,6 +39,13 @@ module.exports = {
                 resolve(result);
             });
         })
+    },
+
+    clear: async function () {
+        const results = await con.promise().query("DELETE FROM mainecoondonation");
+        if (!results.length)
+            throw new Errors.NotFound('mainecoondonation not found');
+        return results[0];
     },
 
     customRequest: async function (query) {

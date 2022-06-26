@@ -2,7 +2,7 @@ module.exports = {
     parseInsertReq: function (req) {
         var descri = null;
         var phone = null;
-        var img = '/opt/images/' + req.file.filename;
+        var img = '/srv/mainecoon-back/public/images' + req.file.filename;
 
         console.log("req.body:", req.body);
 

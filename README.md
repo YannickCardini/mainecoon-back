@@ -24,8 +24,6 @@ Mainecoon
 
 ### Get
 
-`/createDataBase`
-
 `/createTable`
 
 `/connect`
@@ -35,12 +33,8 @@ Mainecoon
 ### Post
 
 `/insert`
-example:
->  curl -d "values=('filibert','super chat','PACA','/home/loubard/Images/mainecoon.jpg', '0623671013','lolo@gmail.com','2022-06-16')" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:3000/insert
 
 `/customRequest`
-example:
->  curl -d "query=SELECT * FROM mainecoondonation" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://localhost:3000/inser
 
 ## Docker 🐋
 

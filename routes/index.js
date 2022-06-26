@@ -68,6 +68,12 @@ router.get('/select', async function (req, res, next) {
   res.json(result);;
 })
 
+router.get('/clear', async function (req, res, next) {
+  var result = await mysql.clear();
+  console.log("result: ", result)
+  res.json(result);;
+})
+
 router.post('/insert', multer(multerConfig).single('photo'), async (req, res) => {
   try {
     var values = utils.parseInsertReq(req);
