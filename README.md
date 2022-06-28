@@ -19,7 +19,6 @@ Mainecoon
 - email VARCHAR(255),
 - dateposted DATE;
 
-
 ## Routes 🛤️
 
 ### Get

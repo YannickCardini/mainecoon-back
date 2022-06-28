@@ -1,29 +1,32 @@
 var mysql = require('mysql2');
 
-var con = mysql.createConnection({
-    host: "db",
-    user: "root",
-    password: "password",
-});
-
 module.exports = {
 
-    connect: async function () {
-        await con.promise().connect();
-        console.log("Connected!");
-        await con.promise().query("CREATE DATABASE IF NOT EXISTS mainecoon");
-        console.log("Database created");
+    connect: function(){
         var con = mysql.createConnection({
             host: "db",
             user: "root",
             password: "password",
-            database: "mainecoon"
         });
+        con.connect(function(err) {
+            if (err) throw err;
+            console.log("Connected!");
+            con.query("CREATE DATABASE mainecoon", function (err, result) {
+              if (err) throw err;
+              console.log("Database created");
+            });
+          });
     },
+
 
     createTable: function () {
         var sql = "CREATE TABLE mainecoondonation (id INT AUTO_INCREMENT PRIMARY KEY, catname VARCHAR(255), descri VARCHAR(255), region VARCHAR(255), img VARCHAR(255), phone VARCHAR(14), email VARCHAR(255), dateposted DATE)";
-        con.query(sql, function (err, result) {
+        mysql.createConnection({
+            host: "db",
+            user: "root",
+            password: "password",
+            database: "mainecoon"
+        }).query(sql, function (err, result) {
             if (err) throw err;
             console.log("Table created");
         });
@@ -32,7 +35,12 @@ module.exports = {
     insertInto: async function (values) {
         return new Promise((resolve, reject) => {
             var sql = "INSERT INTO mainecoondonation (catname, descri, region, img, phone, email, dateposted) VALUES " + values;
-            return con.query(sql, (err, result) => {
+            return mysql.createConnection({
+                host: "db",
+                user: "root",
+                password: "password",
+                database: "mainecoon"
+            }).query(sql, (err, result) => {
                 if (err) {
                     return reject(err);
                 }
@@ -42,7 +50,12 @@ module.exports = {
     },
 
     clear: async function () {
-        const results = await con.promise().query("DELETE FROM mainecoondonation");
+        const results = await mysql.createConnection({
+            host: "db",
+            user: "root",
+            password: "password",
+            database: "mainecoon"
+        }).promise().query("DELETE FROM mainecoondonation");
         if (!results.length)
             throw new Errors.NotFound('mainecoondonation not found');
         return results[0];
@@ -50,11 +63,21 @@ module.exports = {
 
     customRequest: async function (query) {
         var sql = query;
-        return await con.promise().query(sql);
+        return await mysql.createConnection({
+            host: "db",
+            user: "root",
+            password: "password",
+            database: "mainecoon"
+        }).promise().query(sql);
     },
 
     select: async function () {
-        const results = await con.promise().query("SELECT * FROM mainecoondonation");
+        const results = await mysql.createConnection({
+            host: "db",
+            user: "root",
+            password: "password",
+            database: "mainecoon"
+        }).promise().query("SELECT * FROM mainecoondonation");
         if (!results.length)
             throw new Errors.NotFound('mainecoondonation not found');
         return results[0];
